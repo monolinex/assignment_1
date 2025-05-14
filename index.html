@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rohan's Personal Blog</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>Welcome to Rohan's Blog</h1>
+<p>Sharing thoughts, stories, and inspiration</p>
+</header>
+<div class="container">
+<h2>Latest Post</h2>
+<p>Hello! I'm Rohan. This is my personal blog where I share coding tips, travel stories, and tutorials.</p>
+<button onclick="handleClick()">Click Me!</button>
+<h2>Watch My Video</h2>
+<video width="600" controls>
+  <source src="Charlie Puth - Light Switch [Official Music Video].mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+<h2>Contact Me</h2>
+<form id="contactForm">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" required>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" required>
+<label for="message">Message:</label>
+<textarea id="message" name="message" rows="5" required></textarea>
+<label for="file">Attach a File:</label>
+<input type="file" id="file" name="file">
+<button type="submit">Send</button>
+</form>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
