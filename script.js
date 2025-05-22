@@ -1,133 +1,155 @@
-// script.js
+// GA4 event function (safety check)
+function sendGtagEvent(eventName, params = {}) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, params);
+  } else {
+    console.warn('gtag function not defined.');
+  }
+}
 
-// Wait for DOM to load
-document.addEventListener('DOMContentLoaded', () => {
-  const popup = document.getElementById('popup');
-  const popupTitle = document.getElementById('popupTitle');
-  const popupPrice = document.getElementById('popupPrice');
-  const exploreBtn = document.getElementById('exploreNowBtn');
-  const discountBanner = document.getElementById('discountBanner');
+// Popup elements
+const popup = document.getElementById('popup');
+const popupTitle = document.getElementById('popup-title');
+const popupPrice = document.getElementById('popup-price');
+const popupDiscount = document.getElementById('popup-discount');
+const popupCloseBtn = document.getElementById('popup-close');
 
-  // Dishes array for Explore More popup
-  const dishes = [
-    { name: "Margherita Pizza", price: "₹199" },
-    { name: "Pasta Alfredo", price: "₹249" },
-    { name: "Paneer Tikka", price: "₹179" },
-    { name: "Veg Biryani", price: "₹229" },
-    { name: "Cheeseburger", price: "₹199" },
-    { name: "Caesar Salad", price: "₹149" },
-    { name: "Gulab Jamun", price: "₹99" },
-  ];
+// Show popup for dish
+function showDishPopup(dish) {
+  const name = dish.dataset.name;
+  const price = dish.dataset.price;
 
-  // Track clicks on the discount banner and show discount info
-  discountBanner.addEventListener('click', () => {
-    alert(
-      "Discount Info:\n50% off applied automatically at checkout on all dishes."
-    );
-    gtag('event', 'discount_banner_click', {
-      event_category: 'engagement',
-      event_label: 'Discount Banner',
-    });
+  popupTitle.textContent = name;
+  popupPrice.textContent = `Price: ${price}`;
+  popupDiscount.classList.add('hidden');
+  popupDiscount.textContent = '';
+
+  popup.classList.remove('hidden');
+  popupCloseBtn.focus();
+
+  // Send GA event
+  sendGtagEvent('explore_more_click', {
+    event_category: 'menu_interaction',
+    event_label: name,
   });
+}
 
-  // Explore More button click - Show all dishes in a popup
-  exploreBtn.addEventListener('click', () => {
-    let content = "<h3>Our Dishes & Prices</h3><ul>";
-    dishes.forEach(dish => {
-      content += `<li>${dish.name} - ${dish.price}</li>`;
-    });
-    content += "</ul><button id='closeExplore'>Close</button>";
-    showCustomPopup(content);
+// Show popup for discount
+function showDiscountPopup(discountBanner) {
+  const discountText = discountBanner.dataset.discount;
 
-    gtag('event', 'explore_more_click', {
-      event_category: 'engagement',
-      event_label: 'Explore More Button',
-    });
+  popupTitle.textContent = 'Special Discount';
+  popupPrice.textContent = discountText;
+  popupDiscount.textContent = 'Hurry, limited time offer!';
+  popupDiscount.classList.remove('hidden');
+
+  popup.classList.remove('hidden');
+  popupCloseBtn.focus();
+
+  // Send GA event
+  sendGtagEvent('discount_click', {
+    event_category: 'discount_interaction',
+    event_label: discountText,
   });
+}
 
-  // Show dish popup when clicking on any menu dish image
-  document.querySelectorAll('.grid-image').forEach(img => {
-    img.addEventListener('click', e => {
-      const name = e.target.getAttribute('data-name');
-      const price = e.target.getAttribute('data-price');
+// Close popup
+popupCloseBtn.addEventListener('click', () => {
+  popup.classList.add('hidden');
+});
 
-      popupTitle.textContent = name;
-      popupPrice.textContent = `Price: ${price}`;
-      popup.style.display = 'block';
+popup.addEventListener('click', (e) => {
+  if (e.target === popup) {
+    popup.classList.add('hidden');
+  }
+});
 
-      gtag('event', 'dish_click', {
-        event_category: 'menu',
-        event_label: name,
-        value: price.replace(/[₹]/g, ''),
-      });
-    });
+// Dish explore more buttons
+const exploreButtons = document.querySelectorAll('.explore-btn');
+exploreButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const dish = btn.closest('.dish');
+    showDishPopup(dish);
   });
+});
 
-  // Close popup on clicking outside content
-  window.onclick = function(event) {
-    if (event.target == popup) {
-      popup.style.display = "none";
+// Discount banners click and keyboard accessible
+const discountBanners = document.querySelectorAll('.discount-banner');
+discountBanners.forEach(banner => {
+  banner.addEventListener('click', () => {
+    showDiscountPopup(banner);
+  });
+  banner.addEventListener('keypress', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      showDiscountPopup(banner);
     }
-  };
+  });
+});
 
-  // Custom popup to show explore dishes list
-  function showCustomPopup(htmlContent) {
-    const customPopup = document.createElement('div');
-    customPopup.id = 'customPopup';
-    customPopup.style.position = 'fixed';
-    customPopup.style.top = '50%';
-    customPopup.style.left = '50%';
-    customPopup.style.transform = 'translate(-50%, -50%)';
-    customPopup.style.backgroundColor = 'white';
-    customPopup.style.padding = '20px';
-    customPopup.style.borderRadius = '8px';
-    customPopup.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
-    customPopup.style.zIndex = '1001';
-    customPopup.innerHTML = htmlContent;
+// Subscribe form handling with GA4 event tracking
+const subscribeForm = document.getElementById('subscribe-form');
+const emailInput = document.getElementById('email-input');
+const subscribeMessage = document.getElementById('subscribe-message');
 
-    // Close button event
-    customPopup.querySelector('#closeExplore').addEventListener('click', () => {
-      document.body.removeChild(customPopup);
-    });
+subscribeForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const email = emailInput.value.trim();
 
-    document.body.appendChild(customPopup);
+  if (!email) {
+    subscribeMessage.style.color = 'red';
+    subscribeMessage.textContent = 'Please enter a valid email address.';
+    return;
   }
 
-  // Newsletter subscription button
-  const newsletterBtn = document.getElementById('newsletterBtn');
-  const newsletterEmail = document.getElementById('newsletterEmail');
-  newsletterBtn.addEventListener('click', () => {
-    const email = newsletterEmail.value.trim();
-    if (validateEmail(email)) {
-      alert(`Thank you for subscribing, ${email}!`);
-      gtag('event', 'newsletter_subscribe', {
-        event_category: 'engagement',
-        event_label: 'Newsletter',
-        value: email,
-      });
-      newsletterEmail.value = '';
-    } else {
-      alert('Please enter a valid email address.');
-    }
+  // Mask the email for privacy in GA4 event (optional)
+  const maskedEmail = email.replace(/(.{2})(.*)(?=@)/,
+    (_, start, middle) => start + '*'.repeat(middle.length));
+
+  // Send custom GA4 event 'newsletter_subscribe'
+  sendGtagEvent('newsletter_subscribe', {
+    event_category: 'engagement',
+    event_label: maskedEmail
   });
 
-  // Simple email validation function
-  function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+  subscribeMessage.style.color = '#4caf50';
+  subscribeMessage.textContent = 'Thank you for subscribing!';
+
+  // Clear the input
+  emailInput.value = '';
+});
+
+// Logo click tracking
+const logo = document.querySelector('.logo');
+logo.addEventListener('click', () => {
+  sendGtagEvent('logo_click', {
+    event_category: 'engagement',
+    event_label: 'logo_clicked',
+  });
+});
+logo.addEventListener('keypress', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    sendGtagEvent('logo_click', {
+      event_category: 'engagement',
+      event_label: 'logo_clicked',
+    });
   }
+});
 
-  // Social icon clicks (dummy tracking)
-  ['facebookIcon', 'twitterIcon', 'instagramIcon', 'youtubeIcon'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('click', () => {
-        gtag('event', 'social_click', {
-          event_category: 'engagement',
-          event_label: id.replace('Icon', ''),
-        });
-        alert(`Redirecting to our ${id.replace('Icon', '')} page (demo).`);
-      });
-    }
-  });
+// Scroll tracking: 50% scroll event, fires once
+let scrollTracked = false;
+window.addEventListener('scroll', () => {
+  if (scrollTracked) return;
+
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const pageHeight = document.documentElement.scrollHeight;
+
+  if (scrollPosition >= pageHeight / 2) {
+    sendGtagEvent('page_scroll_50', {
+      event_category: 'engagement',
+      event_label: 'scrolled_50_percent'
+    });
+    scrollTracked = true;
+  }
 });
