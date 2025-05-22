@@ -6,19 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Epicurean Eats</title>
     <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://kit.fontawesome.com/7a4b62b0a4.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/7a4b62b0a4.js" crossorigin="anonymous"></script>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RTRS13RMVS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-RTRS13RMVS');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTRS13RMVS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RTRS13RMVS');
+    </script>
   </head>
   <body>
     <nav>
@@ -40,10 +36,8 @@
         <div class="hero_content">
           <div class="tag">50% Off on All Products</div>
           <h1>Enjoy Your Delicious Food</h1>
-          <p>
-            Savor the Flavor: Your Culinary Adventure Awaits!
-          </p>
-          <button class="explore_btn">Explore Now</button>
+          <p>Savor the Flavor: Your Culinary Adventure Awaits!</p>
+          <button class="explore_btn" id="exploreNowBtn">Explore Now</button>
         </div>
       </div>
       <section class="features">
@@ -73,56 +67,27 @@
       <div class="menu">
         <div class="tag">Our Menu</div>
         <h2>Explore Our Menu</h2>
-
-        <div class="grid">
+        <div class="grid" id="menuGrid">
           <div class="item1">
-            <img
-              class="grid-image"
-              src="images/grid_image1.png"
-              alt="image 1"
-            />
+            <img class="grid-image" src="images/grid_image1.png" alt="image 1" data-menu="Item 1" />
           </div>
           <div class="item2">
-            <img
-              class="grid-image"
-              src="images/grid_image2.png"
-              alt="image 2"
-            />
+            <img class="grid-image" src="images/grid_image2.png" alt="image 2" data-menu="Item 2" />
           </div>
           <div class="item3">
-            <img
-              class="grid-image"
-              src="images/grid_image3.png"
-              alt="image 3"
-            />
+            <img class="grid-image" src="images/grid_image3.png" alt="image 3" data-menu="Item 3" />
           </div>
           <div class="item4">
-            <img
-              class="grid-image"
-              src="images/grid_image4.png"
-              alt="image 4"
-            />
+            <img class="grid-image" src="images/grid_image4.png" alt="image 4" data-menu="Item 4" />
           </div>
           <div class="item5">
-            <img
-              class="grid-image"
-              src="images/grid_image5.png"
-              alt="image 5"
-            />
+            <img class="grid-image" src="images/grid_image5.png" alt="image 5" data-menu="Item 5" />
           </div>
           <div class="item6">
-            <img
-              class="grid-image"
-              src="images/grid_image6.png"
-              alt="image 6"
-            />
+            <img class="grid-image" src="images/grid_image6.png" alt="image 6" data-menu="Item 6" />
           </div>
           <div class="item7">
-            <img
-              class="grid-image"
-              src="images/grid_image7.png"
-              alt="image 7"
-            />
+            <img class="grid-image" src="images/grid_image7.png" alt="image 7" data-menu="Item 7" />
           </div>
         </div>
       </div>
@@ -151,24 +116,91 @@
         </div>
         <div class="news_letter">
           <h3>Support</h3>
-          <input type="email" placeholder="Enter your Email..." />
+          <input type="email" id="newsletterEmail" placeholder="Enter your Email..." />
+          <button id="newsletterBtn" class="newsletter_btn">Subscribe</button>
           <h3>Follow Us</h3>
           <div class="icon_container">
-            <div class="icon">
+            <div class="icon" id="facebookIcon" aria-label="Facebook">
               <i class="fa fa-facebook"></i>
             </div>
-            <div class="icon">
+            <div class="icon" id="twitterIcon" aria-label="Twitter">
               <i class="fa fa-twitter" aria-hidden="true"></i>
             </div>
-            <div class="icon">
+            <div class="icon" id="instagramIcon" aria-label="Instagram">
               <i class="fa fa-instagram" aria-hidden="true"></i>
             </div>
-            <div class="icon">
+            <div class="icon" id="youtubeIcon" aria-label="YouTube">
               <i class="fa fa-youtube" aria-hidden="true"></i>
             </div>
           </div>
         </div>
       </div>
     </footer>
+    <!-- INTERACTIVITY & GA4 EVENT TAGS -->
+    <script>
+      // "Explore Now" button click
+      document.getElementById('exploreNowBtn').addEventListener('click', function() {
+        gtag('event', 'explore_now_clicked', {
+          'event_category': 'engagement',
+          'event_label': 'Explore Now Button'
+        });
+        alert('Explore our menu and offers!');
+      });
+
+      // Menu grid image clicks
+      document.querySelectorAll('.grid-image').forEach(function(img) {
+        img.addEventListener('click', function() {
+          gtag('event', 'menu_item_clicked', {
+            'event_category': 'menu',
+            'event_label': img.getAttribute('data-menu')
+          });
+          alert('You clicked on ' + img.getAttribute('data-menu'));
+        });
+      });
+
+      // Newsletter subscription
+      document.getElementById('newsletterBtn').addEventListener('click', function() {
+        var email = document.getElementById('newsletterEmail').value;
+        if(email) {
+          gtag('event', 'newsletter_subscribed', {
+            'event_category': 'newsletter',
+            'event_label': email
+          });
+          alert('Thank you for subscribing!');
+        } else {
+          alert('Please enter your email address.');
+        }
+      });
+
+      // Social icon clicks
+      document.getElementById('facebookIcon').addEventListener('click', function() {
+        gtag('event', 'social_click', {
+          'event_category': 'social',
+          'event_label': 'Facebook'
+        });
+        window.open('https://facebook.com/', '_blank');
+      });
+      document.getElementById('twitterIcon').addEventListener('click', function() {
+        gtag('event', 'social_click', {
+          'event_category': 'social',
+          'event_label': 'Twitter'
+        });
+        window.open('https://twitter.com/', '_blank');
+      });
+      document.getElementById('instagramIcon').addEventListener('click', function() {
+        gtag('event', 'social_click', {
+          'event_category': 'social',
+          'event_label': 'Instagram'
+        });
+        window.open('https://instagram.com/', '_blank');
+      });
+      document.getElementById('youtubeIcon').addEventListener('click', function() {
+        gtag('event', 'social_click', {
+          'event_category': 'social',
+          'event_label': 'YouTube'
+        });
+        window.open('https://youtube.com/', '_blank');
+      });
+    </script>
   </body>
 </html>
