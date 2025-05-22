@@ -2,131 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Epicurean Eats</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/7a4b62b0a4.js" crossorigin="anonymous"></script>
-  <!-- Google Analytics GA4 Tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delicious Bites - Restaurant Menu</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTRS13RMVS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-RTRS13RMVS'); 
+
+    // Replace G-XXXXXXXXXX with your GA4 Measurement ID
+    gtag('config', 'G-RTRS13RMVS');
   </script>
+
 </head>
 <body>
-  <!-- Navigation -->
-  <nav>
-    <div class="navigation container">
-      <div class="logo_container"><img src="images/logo.png" alt="logo" height="35" /></div>
-      <div class="bar_icon"><i class="fas fa-bars"></i></div>
+  <header>
+    <div class="logo" role="banner" aria-label="Delicious Bites Restaurant Logo" tabindex="0">
+      <span class="logo-icon" aria-hidden="true">🍽️</span>
+      <span class="logo-text">Delicious Bites</span>
     </div>
-  </nav>
+  </header>
 
-  <!-- Hero Section -->
-  <div class="container">
-    <div class="hero">
-      <div class="hero_image"><img src="images/hero_image.png" alt="hero image" /></div>
-      <div class="hero_content">
-        <div class="tag" id="discountBanner">50% Off on All Products</div>
-        <h1>Enjoy Your Delicious Food</h1>
-        <p>Savor the Flavor: Your Culinary Adventure Awaits!</p>
-        <button class="explore_btn" id="exploreNowBtn">Explore Now</button>
+  <main>
+    <section class="menu-section" aria-labelledby="menu-title">
+      <h2 id="menu-title">Our Dishes</h2>
+      <div class="dish" data-name="Margherita Pizza" data-price="$12">
+        <h3>Margherita Pizza</h3>
+        <button class="explore-btn" aria-describedby="margherita-desc">Explore More</button>
       </div>
-    </div>
-
-    <!-- Features -->
-    <section class="features">
-      <div class="feature">
-        <img src="icons/discount.png" alt="Discount Icon" />
-        <div class="feature_content">
-          <h3>Discount Voucher</h3>
-          Unlock Delicious Deals!
-        </div>
+      <div class="dish" data-name="Spaghetti Carbonara" data-price="$15">
+        <h3>Spaghetti Carbonara</h3>
+        <button class="explore-btn" aria-describedby="carbonara-desc">Explore More</button>
       </div>
-      <div class="feature">
-        <img src="icons/fresh.png" alt="Fresh Icon" />
-        <div class="feature_content">
-          <h3>Fresh Healthy Food</h3>
-          Freshness You Can Taste!
-        </div>
-      </div>
-      <div class="feature">
-        <img src="icons/delivery.png" alt="Delivery Icon" />
-        <div class="feature_content">
-          <h3>Fast Home Delivery</h3>
-          Delivered Fast!
-        </div>
+      <div class="dish" data-name="Caesar Salad" data-price="$10">
+        <h3>Caesar Salad</h3>
+        <button class="explore-btn" aria-describedby="caesar-desc">Explore More</button>
       </div>
     </section>
 
-    <div class="divider"></div>
+    <section class="discount-section" aria-labelledby="discount-title">
+      <h2 id="discount-title">Special Discounts</h2>
+      <div class="discount-banner" data-discount="10% off on all pizzas" tabindex="0">
+        <p>Pizza Discount - Click to see details</p>
+      </div>
+      <div class="discount-banner" data-discount="Buy 1 Get 1 Free on Salads" tabindex="0">
+        <p>Salad Offer - Click to see details</p>
+      </div>
+    </section>
 
-    <!-- Menu -->
-    <div class="menu">
-      <div class="tag">Our Menu</div>
-      <h2>Explore Our Menu</h2>
-      <div class="grid" id="menuGrid">
-        <!-- Images with data attributes for interactivity -->
-        <div class="item1"><img class="grid-image" src="images/grid_image1.png" alt="Dish 1" data-name="Margherita Pizza" data-price="₹199" /></div>
-        <div class="item2"><img class="grid-image" src="images/grid_image2.png" alt="Dish 2" data-name="Pasta Alfredo" data-price="₹249" /></div>
-        <div class="item3"><img class="grid-image" src="images/grid_image3.png" alt="Dish 3" data-name="Paneer Tikka" data-price="₹179" /></div>
-        <div class="item4"><img class="grid-image" src="images/grid_image4.png" alt="Dish 4" data-name="Veg Biryani" data-price="₹229" /></div>
-        <div class="item5"><img class="grid-image" src="images/grid_image5.png" alt="Dish 5" data-name="Cheeseburger" data-price="₹199" /></div>
-        <div class="item6"><img class="grid-image" src="images/grid_image6.png" alt="Dish 6" data-name="Caesar Salad" data-price="₹149" /></div>
-        <div class="item7"><img class="grid-image" src="images/grid_image7.png" alt="Dish 7" data-name="Gulab Jamun" data-price="₹99" /></div>
-      </div>
-    </div>
-  </div>
+    <section class="subscribe-section" aria-labelledby="subscribe-title">
+      <h2 id="subscribe-title">Subscribe to Our Newsletter</h2>
+      <form id="subscribe-form" novalidate>
+        <label for="email-input">Email Address:</label>
+        <input
+          type="email"
+          id="email-input"
+          name="email"
+          required
+          placeholder="you@example.com"
+          aria-required="true"
+        />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p id="subscribe-message" role="alert" aria-live="polite"></p>
+    </section>
+  </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer_container container">
-      <div class="footer_logo"><img src="images/logo.png" alt="logo" /></div>
-      <div class="link_lists">
-        <h3>Main Links</h3>
-        <ul>
-          <li>Order Tracking</li>
-          <li>New Order</li>
-          <li>Contact Us</li>
-          <li>News & Blogs</li>
-        </ul>
-      </div>
-      <div class="link_lists">
-        <h3>Support</h3>
-        <ul>
-          <li>About Us</li>
-          <li>Privacy Policy</li>
-          <li>Terms & Conditions</li>
-        </ul>
-      </div>
-      <div class="news_letter">
-        <h3>Newsletter</h3>
-        <input type="email" id="newsletterEmail" placeholder="Enter your Email..." />
-        <button id="newsletterBtn" class="newsletter_btn">Subscribe</button>
-        <h3>Follow Us</h3>
-        <div class="icon_container">
-          <div class="icon" id="facebookIcon"><i class="fa fa-facebook"></i></div>
-          <div class="icon" id="twitterIcon"><i class="fa fa-twitter"></i></div>
-          <div class="icon" id="instagramIcon"><i class="fa fa-instagram"></i></div>
-          <div class="icon" id="youtubeIcon"><i class="fa fa-youtube"></i></div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Dish Popup Modal -->
-  <div id="popup" class="popup">
+  <!-- Popup Modal -->
+  <div
+    id="popup"
+    class="popup hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="popup-title"
+    aria-describedby="popup-desc"
+  >
     <div class="popup-content">
-      <span class="close-btn" onclick="document.getElementById('popup').style.display='none'">&times;</span>
-      <h3 id="popupTitle"></h3>
-      <p id="popupPrice"></p>
-      <p><strong>Discount Info:</strong> 50% Off Applied Automatically at Checkout.</p>
+      <button id="popup-close" class="popup-close" aria-label="Close popup">&times;</button>
+      <h3 id="popup-title"></h3>
+      <p id="popup-price"></p>
+      <p id="popup-discount" class="hidden" id="popup-desc"></p>
     </div>
   </div>
 
-  <!-- JS Script -->
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
