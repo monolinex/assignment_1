@@ -1,94 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Delicious Bites - Restaurant Menu</title>
-
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTRS13RMVS"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    // Replace G-XXXXXXXXXX with your GA4 Measurement ID
-    gtag('config', 'G-RTRS13RMVS');
-  </script>
-
-</head>
-<body>
-  <header>
-    <div class="logo" role="banner" aria-label="Delicious Bites Restaurant Logo" tabindex="0">
-      <span class="logo-icon" aria-hidden="true">🍽️</span>
-      <span class="logo-text">Delicious Bites</span>
-    </div>
-  </header>
-
-  <main>
-    <section class="menu-section" aria-labelledby="menu-title">
-      <h2 id="menu-title">Our Dishes</h2>
-      <div class="dish" data-name="Margherita Pizza" data-price="$12">
-        <h3>Margherita Pizza</h3>
-        <button class="explore-btn" aria-describedby="margherita-desc">Explore More</button>
-      </div>
-      <div class="dish" data-name="Spaghetti Carbonara" data-price="$15">
-        <h3>Spaghetti Carbonara</h3>
-        <button class="explore-btn" aria-describedby="carbonara-desc">Explore More</button>
-      </div>
-      <div class="dish" data-name="Caesar Salad" data-price="$10">
-        <h3>Caesar Salad</h3>
-        <button class="explore-btn" aria-describedby="caesar-desc">Explore More</button>
-      </div>
-    </section>
-
-    <section class="discount-section" aria-labelledby="discount-title">
-      <h2 id="discount-title">Special Discounts</h2>
-      <div class="discount-banner" data-discount="10% off on all pizzas" tabindex="0">
-        <p>Pizza Discount - Click to see details</p>
-      </div>
-      <div class="discount-banner" data-discount="Buy 1 Get 1 Free on Salads" tabindex="0">
-        <p>Salad Offer - Click to see details</p>
-      </div>
-    </section>
-
-    <section class="subscribe-section" aria-labelledby="subscribe-title">
-      <h2 id="subscribe-title">Subscribe to Our Newsletter</h2>
-      <form id="subscribe-form" novalidate>
-        <label for="email-input">Email Address:</label>
-        <input
-          type="email"
-          id="email-input"
-          name="email"
-          required
-          placeholder="you@example.com"
-          aria-required="true"
-        />
-        <button type="submit">Subscribe</button>
-      </form>
-      <p id="subscribe-message" role="alert" aria-live="polite"></p>
-    </section>
-  </main>
-
-  <!-- Popup Modal -->
-  <div
-    id="popup"
-    class="popup hidden"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="popup-title"
-    aria-describedby="popup-desc"
-  >
-    <div class="popup-content">
-      <button id="popup-close" class="popup-close" aria-label="Close popup">&times;</button>
-      <h3 id="popup-title"></h3>
-      <p id="popup-price"></p>
-      <p id="popup-discount" class="hidden" id="popup-desc"></p>
-    </div>
-  </div>
-
-  <script src="script.js" defer></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Tic-Tac-Toe</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <section>
+            <h1 class="game--title">Tic-Tac-Toe</h1>
+            <div class="game--container">
+                <div data-cell-index="0" class="cell"></div>
+                <div data-cell-index="1" class="cell"></div>
+                <div data-cell-index="2" class="cell"></div>
+                <div data-cell-index="3" class="cell"></div>
+                <div data-cell-index="4" class="cell"></div>
+                <div data-cell-index="5" class="cell"></div>
+                <div data-cell-index="6" class="cell"></div>
+                <div data-cell-index="7" class="cell"></div>
+                <div data-cell-index="8" class="cell"></div>
+            </div>
+            <h2 class="game--status"></h2>
+            <button class="game--restart">Restart Game</button>
+        </section>
+        <script src="script.js"></script>
+    </body>
 </html>
