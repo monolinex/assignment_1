@@ -1,38 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-80RJS3KD5J"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-80RJS3KD5J');
-        </script>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Tic-Tac-Toe</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <section>
-            <h1 class="game--title">Tic-Tac-Toe</h1>
-            <div class="game--container">
-                <div data-cell-index="0" class="cell"></div>
-                <div data-cell-index="1" class="cell"></div>
-                <div data-cell-index="2" class="cell"></div>
-                <div data-cell-index="3" class="cell"></div>
-                <div data-cell-index="4" class="cell"></div>
-                <div data-cell-index="5" class="cell"></div>
-                <div data-cell-index="6" class="cell"></div>
-                <div data-cell-index="7" class="cell"></div>
-                <div data-cell-index="8" class="cell"></div>
-            </div>
-            <h2 class="game--status"></h2>
-            <button class="game--restart">Restart Game</button>
-        </section>
-        <script src="script.js"></script>
-    </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Awesome Blog</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header>
+    <h1>Welcome to My Awesome Blog</h1>
+    <nav>
+      <button onclick="trackClick('home_button')">Home</button>
+      <button onclick="trackClick('about_button')">About</button>
+      <button onclick="trackClick('contact_button')">Contact</button>
+    </nav>
+  </header>
+
+
+ 
+<section class="video-section">
+    <h2 class="txt">Watch My Video</h2>
+    <video class="vdo" width="auto" height="400" controls autoplay onclick="trackClick('video_play')">
+      <source src="./vdo.webm" type="video/webm" />
+      Your browser does not support HTML5 video.
+    </video>
+  </section>
+  
+
+  <section class="form-section">
+    <h2>Contact Me</h2>
+    <form id="contactForm" onsubmit="submitForm(); return false;">
+      <input type="text" placeholder="Your Name" name="name" required />
+      <input type="email" placeholder="Your Email" name="email" required />
+      <textarea placeholder="Your Message" name="message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <section class="upload-section">
+    <h2>Upload Your File</h2>
+    <input type="file" id="fileInput" onchange="trackClick('file_upload')" />
+  </section>
+
+  <footer>
+    <p>Made with passion & colors. Track everything using GA4!</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
 </html>
