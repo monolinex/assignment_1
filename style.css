@@ -1,250 +1,49 @@
-/* Reset */
-* {
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0 20px;
-  background-color: #fafafa;
-  color: #333;
-  line-height: 1.6;
+    font-family: "Arial", sans-serif;
 }
 
-header {
-  background-color: #ff6f61;
-  padding: 20px 0;
-  text-align: center;
-  color: white;
-  user-select: none;
+section {
+    text-align: center;
 }
 
-.logo {
-  display: inline-flex;
-  align-items: center;
-  font-weight: 700;
-  font-size: 28px;
-  letter-spacing: 1.2px;
-  cursor: pointer;
-  outline-offset: 3px;
+.cell {
+    font-family: "Permanent Marker", cursive;
+    width: 100px;
+    height: 100px;
+    box-shadow: 2px 2px 2px 2px #ecd7ba;
+    border: 2px solid #ecd7ba;
+    cursor: pointer;
+    line-height: 100px;
+    font-size: 60px;
 }
 
-.logo:focus {
-  outline: 3px solid #fff3e0;
-  border-radius: 6px;
+.game--title {
+    font-size: 100px;
+    color: #d7a62f;
+    margin: 10px auto;
 }
 
-.logo-icon {
-  font-size: 36px;
-  margin-right: 10px;
+.game--container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 306px;
+    margin: 10px auto;
+    background-color: #11213a;
+    color: #04c0b2;
 }
 
-main {
-  max-width: 700px;
-  margin: 30px auto;
+.game--status {
+    font-size: 50px;
+    color: #d7a62f;
+    margin: 20px auto;
 }
 
-/* Section headings */
-h2 {
-  border-bottom: 3px solid #ff6f61;
-  padding-bottom: 6px;
-  margin-bottom: 20px;
-}
-
-/* Dishes */
-.dish {
-  background: white;
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.dish h3 {
-  margin: 0;
-}
-
-.explore-btn {
-  background-color: #ff6f61;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.explore-btn:hover,
-.explore-btn:focus {
-  background-color: #e65b50;
-  outline: none;
-}
-
-/* Discounts */
-.discount-section {
-  margin-top: 40px;
-}
-
-.discount-banner {
-  background-color: #ffe4b5;
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  font-weight: 600;
-  color: #6b4c00;
-  transition: background-color 0.3s ease;
-  outline-offset: 3px;
-}
-
-.discount-banner:hover,
-.discount-banner:focus {
-  background-color: #ffdb73;
-  outline: none;
-}
-
-/* Subscribe Section */
-.subscribe-section {
-  background: #fff3e0;
-  padding: 25px 20px;
-  border-radius: 8px;
-  margin-top: 40px;
-  box-shadow: 0 0 10px rgba(255, 111, 97, 0.3);
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.subscribe-section h2 {
-  margin-top: 0;
-  color: #e65100;
-}
-
-#subscribe-form {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 12px;
-}
-
-#email-input {
-  flex-grow: 1;
-  padding: 10px 14px;
-  font-size: 16px;
-  border: 2px solid #e65100;
-  border-radius: 5px;
-}
-
-#email-input:focus {
-  outline: none;
-  border-color: #ff6f61;
-  box-shadow: 0 0 6px #ff6f61aa;
-}
-
-#subscribe-form button {
-  background-color: #e65100;
-  color: white;
-  border: none;
-  padding: 11px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#subscribe-form button:hover,
-#subscribe-form button:focus {
-  background-color: #ff6f61;
-  outline: none;
-}
-
-#subscribe-message {
-  margin-top: 12px;
-  font-weight: 600;
-  color: #4caf50;
-}
-
-/* Popup Modal */
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup.hidden {
-  display: none;
-}
-
-.popup-content {
-  background: white;
-  padding: 30px 35px;
-  border-radius: 12px;
-  width: 320px;
-  max-width: 90%;
-  position: relative;
-  text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.popup-close {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #666;
-  background: transparent;
-  border: none;
-  transition: color 0.3s ease;
-}
-
-.popup-close:hover,
-.popup-close:focus {
-  color: #000;
-  outline: none;
-}
-
-#popup-price {
-  font-weight: 700;
-  margin: 18px 0 12px;
-  font-size: 18px;
-}
-
-#popup-discount {
-  color: #d2691e;
-  font-style: italic;
-  margin-top: 10px;
-}
-
-.hidden {
-  display: none;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-  .dish {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .explore-btn {
-    margin-top: 10px;
-    align-self: stretch;
-    width: 100%;
-  }
+.game--restart {
+    background-color: #f7e4ac;
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    color: #5586e2;
+    box-shadow: 2px 2px 2px 2px #d86c23;
+    border: 2px solid #d86c23;
 }
