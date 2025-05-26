@@ -1,86 +1,49 @@
-const statusDisplay = document.querySelector('.game--status');
+// Simulate Google Analytics tracking with console.log
+// Replace with: gtag('event', 'event_name'); when using real GA setup
 
-let gameActive = true;
-let currentPlayer = "X";
-let gameState = ["", "", "", "", "", "", "", "", ""];
+// Page Load
+window.addEventListener('load', () => {
+  console.log("GA_TAG_EVENT: page_loaded");
+});
 
-const winningMessage = () => `Player ${currentPlayer} has won!`;
-const drawMessage = () => `Game ended in a draw!`;
-const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
-
-statusDisplay.innerHTML = currentPlayerTurn();
-
-const winningConditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-];
-
-function handleCellPlayed(clickedCell, clickedCellIndex) {
-    gameState[clickedCellIndex] = currentPlayer;
-    clickedCell.innerHTML = currentPlayer;
+// Track button clicks (e.g., Home, About, Contact)
+function trackClick(tag) {
+  console.log(`GA_TAG_EVENT: ${tag}_clicked`);
 }
 
-function handlePlayerChange() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    statusDisplay.innerHTML = currentPlayerTurn();
+// Video Play
+const video = document.querySelector("video");
+if (video) {
+  video.addEventListener("play", () => {
+    console.log("GA_TAG_EVENT: video_played");
+  });
+  video.addEventListener("pause", () => {
+    console.log("GA_TAG_EVENT: video_paused");
+  });
 }
 
-function handleResultValidation() {
-    let roundWon = false;
-    for(let i = 0; i <= 7; i++) {
-        const winCondition = winningConditions[i];
-        const a = gameState[winCondition[0]];
-        const b = gameState[winCondition[1]];
-        const c = gameState[winCondition[2]];
-        if(a === '' || b === '' || c === '')
-            continue;
-        if(a === b && b === c) {
-            roundWon = true;
-            break
-        }
-    }
-
-    if(roundWon) {
-        statusDisplay.innerHTML = winningMessage();
-        gameActive = false;
-        return;
-    }
-
-    const roundDraw = !gameState.includes("");
-    if(roundDraw) {
-        statusDisplay.innerHTML = drawMessage();
-        gameActive = false;
-        return;
-    }
-
-    handlePlayerChange();
+// Form Submission
+function submitForm() {
+  const form = document.getElementById("contactForm");
+  const formData = new FormData(form);
+  console.log("GA_TAG_EVENT: form_submitted");
+  alert("Thanks, your message was sent!");
+  form.reset();
 }
 
-function handleCellClick(clickedCellEvent) {
-    const clickedCell = clickedCellEvent.target;
-    const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+// Track focus on form fields
+const formInputs = document.querySelectorAll("#contactForm input, #contactForm textarea");
+formInputs.forEach(input => {
+  input.addEventListener("focus", () => {
+    console.log(`GA_TAG_EVENT: field_focused_${input.name}`);
+  });
+});
 
-    if(gameState[clickedCellIndex] !== "" || !gameActive)
-        return;
-
-    handleCellPlayed(clickedCell, clickedCellIndex);
-    handleResultValidation();
+// File Upload
+const fileInput = document.getElementById("fileInput");
+if (fileInput) {
+  fileInput.addEventListener("change", () => {
+    const fileName = fileInput.files[0]?.name || 'unknown';
+    console.log(`GA_TAG_EVENT: file_uploaded - ${fileName}`);
+  });
 }
-
-function handleRestartGame() {
-    gameActive = true;
-    currentPlayer = "X";
-    gameState = ["", "", "", "", "", "", "", "", ""];
-    statusDisplay.innerHTML = currentPlayerTurn();
-    document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
-}
-
-
-document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
-document.querySelector('.game--restart').addEventListener('click', handleRestartGame);
